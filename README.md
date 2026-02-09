@@ -1,3 +1,5 @@
+<img width="1200" height="720" alt="banner" src="https://github.com/user-attachments/assets/7261f143-92b6-416c-ace9-e3d3babc94d0" />
+
 # WordPress AI Agent Skills
 
 A collection of AI agent skills (custom rules/instructions) for professional WordPress development. These skills ensure your AI coding agent — whether it's Claude, Cursor, Windsurf, Antigravity, GitHub Copilot, or any other — follows official WordPress coding standards, security best practices, accessibility requirements (WCAG 2.1 AA), and WordPress.org directory guidelines when building plugins and themes.
