@@ -113,7 +113,7 @@ wp-theme-dev/
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/wordpress-ai-agent-skills.git
+git clone https://github.com/wpacademy/wordpress-ai-agent-skills.git
 
 # Copy skills to your project
 cp -r wordpress-ai-agent-skills/wp-plugin-dev your-project/.claude/skills/
