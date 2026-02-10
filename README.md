@@ -14,8 +14,8 @@ They work across all major AI coding tools:
 |---|---|
 | **Claude Code** | `.claude/skills/` |
 | **Cursor** | `.cursor/rules/` |
-| **Windsurf** | `.windsurf/rules/` |
-| **Antigravity** | `.antigravity/rules/` |
+| **Windsurf** | `.windsurf/skills/` |
+| **Antigravity** | `.agent/skills/` |
 | **GitHub Copilot** | `.github/copilot-instructions.md` |
 
 ## 📦 Included Skills
