@@ -2,21 +2,24 @@
 
 # WordPress AI Agent Skills
 
-A collection of AI agent skills (custom rules/instructions) for professional WordPress development. These skills ensure your AI coding agent — whether it's Claude, Cursor, Windsurf, Antigravity, GitHub Copilot, or any other — follows official WordPress coding standards, security best practices, accessibility requirements (WCAG 2.1 AA), and WordPress.org directory guidelines when building plugins and themes.
+A collection of [Agent Skills](https://agentskills.io) for professional WordPress development. These skills ensure your AI coding agent — whether it’s Claude, Cursor, Windsurf, Antigravity, GitHub Copilot, Codex, or any other — follows official WordPress coding standards, security best practices, accessibility requirements (WCAG 2.1 AA), and WordPress.org directory guidelines when building plugins and themes.
 
-## 🎯 What Are AI Agent Skills?
+## 🎯 What Are Agent Skills?
 
-AI Agent Skills are reusable instruction sets (written in plain Markdown) that guide AI coding assistants to follow specific standards and patterns. When you add these skills to your project, your AI agent automatically follows WordPress best practices — producing code that's secure, accessible, modular, and ready for WordPress.org submission.
+[Agent Skills](https://agentskills.io) are an **open standard** for extending AI agents with specialized capabilities. A skill is simply a folder containing a `SKILL.md` file (with YAML frontmatter + instructions) and optional supporting files like `references/`, `scripts/`, and `assets/`.
 
-They work across all major AI coding tools:
+All major AI coding tools now support the same skills format natively:
 
-| Tool | Config Location |
-|---|---|
-| **Claude Code** | `.claude/skills/` |
-| **Cursor** | `.cursor/rules/` |
-| **Windsurf** | `.windsurf/skills/` |
-| **Antigravity** | `.agent/skills/` |
-| **GitHub Copilot** | `.github/copilot-instructions.md` |
+|Tool              |Project Skills Location|Global Skills Location         |Docs                                                                         |
+|------------------|-----------------------|-------------------------------|-----------------------------------------------------------------------------|
+|**Claude Code**   |`.claude/skills/`      |—                              |[docs](https://docs.anthropic.com/en/docs/claude-code/skills)                |
+|**Cursor**        |`.cursor/skills/`      |`~/.cursor/skills/`            |[docs](https://cursor.com/docs/context/skills)                               |
+|**Windsurf**      |`.windsurf/skills/`    |`~/.codeium/windsurf/skills/`  |[docs](https://docs.windsurf.com/windsurf/cascade/skills)                    |
+|**Antigravity**   |`.agent/skills/`       |`~/.gemini/antigravity/skills/`|[docs](https://antigravity.google/docs/skills)                               |
+|**GitHub Copilot**|`.github/skills/`      |`~/.copilot/skills/`           |[docs](https://code.visualstudio.com/docs/copilot/customization/agent-skills)|
+|**Codex (OpenAI)**|`.codex/skills/`       |`~/.codex/skills/`             |[docs](https://developers.openai.com/codex/skills)                           |
+
+**Write once, use everywhere.** Skills you create for one tool work across all tools that support the standard.
 
 ## 📦 Included Skills
 
@@ -25,10 +28,11 @@ They work across all major AI coding tools:
 Guides your AI agent to build production-ready WordPress plugins with proper architecture and security.
 
 **Triggers when you say things like:**
-- "Build me a plugin for X"
-- "Create a WordPress plugin"
-- "I need a WooCommerce extension"
-- "Add a REST API endpoint"
+
+- “Build me a plugin for X”
+- “Create a WordPress plugin”
+- “I need a WooCommerce extension”
+- “Add a REST API endpoint”
 
 **What it enforces:**
 
@@ -40,40 +44,41 @@ Guides your AI agent to build production-ready WordPress plugins with proper arc
 
 **Supported plugin types:**
 
-| Type | Boilerplate Included |
-|---|---|
-| Standard (settings, CPTs, shortcodes) | ✅ |
-| WooCommerce extensions | ✅ |
-| Gutenberg block plugins | ✅ |
-| REST API / headless plugins | ✅ |
-| AJAX handlers | ✅ |
-| Custom database tables | ✅ |
+|Type                                 |Boilerplate Included|
+|-------------------------------------|--------------------|
+|Standard (settings, CPTs, shortcodes)|✅                   |
+|WooCommerce extensions               |✅                   |
+|Gutenberg block plugins              |✅                   |
+|REST API / headless plugins          |✅                   |
+|AJAX handlers                        |✅                   |
+|Custom database tables               |✅                   |
 
 <details>
-<summary><strong>File structure</strong></summary>
+<summary>File structure</summary>
 
 ```
 wp-plugin-dev/
-├── SKILL.md                          # Main instructions (177 lines)
+├── SKILL.md                        # Main instructions (177 lines)
 └── references/
-    ├── architecture.md               # Boilerplate for all plugin types (742 lines)
-    ├── security.md                   # Sanitization, escaping, $wpdb, nonces, caching (216 lines)
-    └── wp-org-guidelines.md          # Condensed 18 official guidelines (31 lines)
+    ├── architecture.md             # Boilerplate for all plugin types (742 lines)
+    ├── security.md                 # Sanitization, escaping, $wpdb, nonces, caching (216 lines)
+    └── wp-org-guidelines.md        # Condensed 18 official guidelines (31 lines)
 ```
 
 </details>
 
----
+-----
 
 ### 2. `wp-theme-dev` — WordPress Theme Development
 
 Guides your AI agent to build accessible, standards-compliant WordPress themes.
 
 **Triggers when you say things like:**
-- "Build me a theme for X"
-- "Create a block theme"
-- "I need a classic WordPress theme"
-- "Make a child theme"
+
+- “Build me a theme for X”
+- “Create a block theme”
+- “I need a classic WordPress theme”
+- “Make a child theme”
 
 **What it enforces:**
 
@@ -85,42 +90,63 @@ Guides your AI agent to build accessible, standards-compliant WordPress themes.
 
 **Supported theme types:**
 
-| Type | Boilerplate Included |
-|---|---|
-| Block themes (FSE) | ✅ |
-| Classic PHP themes | ✅ |
-| Child themes | ✅ |
-| Hybrid themes | ✅ |
+|Type              |Boilerplate Included|
+|------------------|--------------------|
+|Block themes (FSE)|✅                   |
+|Classic PHP themes|✅                   |
+|Child themes      |✅                   |
+|Hybrid themes     |✅                   |
 
 <details>
-<summary><strong>File structure</strong></summary>
+<summary>File structure</summary>
 
 ```
 wp-theme-dev/
-├── SKILL.md                              # Main instructions (193 lines)
+├── SKILL.md                            # Main instructions (193 lines)
 └── references/
-    ├── block-theme-architecture.md       # theme.json, templates, patterns, style variations (567 lines)
-    ├── classic-theme-architecture.md     # Template hierarchy, The Loop, header/footer (497 lines)
-    ├── accessibility.md                  # WCAG 2.1 AA + WordPress accessibility-ready (352 lines)
-    └── review-requirements.md            # All 14 WordPress.org review categories (175 lines)
+    ├── block-theme-architecture.md     # theme.json, templates, patterns, style variations (567 lines)
+    ├── classic-theme-architecture.md   # Template hierarchy, The Loop, header/footer (497 lines)
+    ├── accessibility.md                # WCAG 2.1 AA + WordPress accessibility-ready (352 lines)
+    └── review-requirements.md          # All 14 WordPress.org review categories (175 lines)
 ```
 
 </details>
 
 ## 🚀 Installation
 
-### For Claude Code (`.claude/` directory)
+Since all major AI coding tools now support the **[Agent Skills open standard](https://agentskills.io)**, the setup is almost identical across platforms — just copy the skill folders into your tool’s skills directory.
+
+### Quick Install (All Platforms)
 
 ```bash
 # Clone the repo
 git clone https://github.com/wpacademy/wordpress-dev-skills
+```
 
-# Copy skills to your project
+Then copy the skill folders to your platform’s skills directory:
+
+|Platform          |Command                                                                  |
+|------------------|-------------------------------------------------------------------------|
+|**Claude Code**   |`cp -r wordpress-dev-skills/wp-plugin-dev your-project/.claude/skills/`  |
+|**Cursor**        |`cp -r wordpress-dev-skills/wp-plugin-dev your-project/.cursor/skills/`  |
+|**Windsurf**      |`cp -r wordpress-dev-skills/wp-plugin-dev your-project/.windsurf/skills/`|
+|**Antigravity**   |`cp -r wordpress-dev-skills/wp-plugin-dev your-project/.agent/skills/`   |
+|**GitHub Copilot**|`cp -r wordpress-dev-skills/wp-plugin-dev your-project/.github/skills/`  |
+|**Codex**         |`cp -r wordpress-dev-skills/wp-plugin-dev your-project/.codex/skills/`   |
+
+
+> Repeat the same for `wp-theme-dev`.
+
+-----
+
+### Claude Code
+
+```bash
 cp -r wordpress-dev-skills/wp-plugin-dev your-project/.claude/skills/
 cp -r wordpress-dev-skills/wp-theme-dev your-project/.claude/skills/
 ```
 
-Your project structure should look like:
+Your project structure:
 
 ```
 your-project/
@@ -129,109 +155,154 @@ your-project/
         ├── wp-plugin-dev/
         │   ├── SKILL.md
         │   └── references/
-        │       ├── architecture.md
-        │       ├── security.md
-        │       └── wp-org-guidelines.md
         └── wp-theme-dev/
             ├── SKILL.md
             └── references/
-                ├── block-theme-architecture.md
-                ├── classic-theme-architecture.md
-                ├── accessibility.md
-                └── review-requirements.md
 ```
 
-### For Claude.ai (User Skills)
+Skills are auto-discovered by Claude based on the `description` in each SKILL.md’s frontmatter.
 
-1. Download the skill folder(s) from this repo
-2. Upload to Claude.ai via **Settings → Skills** (when available) or reference them in your project
+-----
 
----
+### Cursor
 
-## 🔄 Setup by Platform
-
-These skills are **plain Markdown files** that work with any AI coding tool supporting custom rules or instructions. Choose your platform below:
-
-### Cursor IDE
-
-Cursor uses `.cursor/rules/` for project-specific rules. You can convert these skills into Cursor rules:
+Cursor supports Agent Skills natively since v2.4. Place skills in `.cursor/skills/`:
 
 ```bash
-# Option 1: Single rule file (combine SKILL.md + references)
-mkdir -p your-project/.cursor/rules
-
-# For plugin development
-cat wp-plugin-dev/SKILL.md wp-plugin-dev/references/*.md > your-project/.cursor/rules/wp-plugin-dev.mdc
-
-# For theme development
-cat wp-theme-dev/SKILL.md wp-theme-dev/references/*.md > your-project/.cursor/rules/wp-theme-dev.mdc
+cp -r wordpress-dev-skills/wp-plugin-dev your-project/.cursor/skills/
+cp -r wordpress-dev-skills/wp-theme-dev your-project/.cursor/skills/
 ```
 
-Add a frontmatter header to the `.mdc` file for auto-activation:
+Your project structure:
 
-```yaml
----
-description: WordPress plugin development standards and best practices
-globs: "**/*.php"
-alwaysApply: false
----
+```
+your-project/
+└── .cursor/
+    └── skills/
+        ├── wp-plugin-dev/
+        │   ├── SKILL.md
+        │   └── references/
+        └── wp-theme-dev/
+            ├── SKILL.md
+            └── references/
 ```
 
-> **Note:** Cursor has a 6,000 character limit per rule file. You may need to split into multiple rule files (e.g., `wp-plugin-security.mdc`, `wp-plugin-architecture.mdc`) or paste the SKILL.md as the rule and keep references as separate files to `@reference` in prompts.
+Skills are auto-invoked when the agent determines they’re relevant, or you can manually invoke with `@wp-plugin-dev` or `@wp-theme-dev` in the chat.
+
+For global availability across all projects, copy to `~/.cursor/skills/` instead.
+
+-----
 
 ### Windsurf (Cascade)
 
-Windsurf uses `.windsurf/rules/` for workspace rules:
+Windsurf supports Agent Skills natively. Place skills in `.windsurf/skills/`:
 
 ```bash
-mkdir -p your-project/.windsurf/rules
-
-# Combine into a single rule file
-cat wp-plugin-dev/SKILL.md wp-plugin-dev/references/*.md > your-project/.windsurf/rules/wp-plugin-dev.md
-cat wp-theme-dev/SKILL.md wp-theme-dev/references/*.md > your-project/.windsurf/rules/wp-theme-dev.md
+cp -r wordpress-dev-skills/wp-plugin-dev your-project/.windsurf/skills/
+cp -r wordpress-dev-skills/wp-theme-dev your-project/.windsurf/skills/
 ```
 
-Or paste the contents via **Windsurf Settings → Set Workspace AI Rules → Edit Rules**.
+Your project structure:
 
-> **Note:** Windsurf has a 12,000 combined character limit for all rules. You may need to use a condensed version of the SKILL.md only.
+```
+your-project/
+└── .windsurf/
+    └── skills/
+        ├── wp-plugin-dev/
+        │   ├── SKILL.md
+        │   └── references/
+        └── wp-theme-dev/
+            ├── SKILL.md
+            └── references/
+```
+
+You can also create skills via the Cascade UI: **three dots menu → Skills → + Workspace**.
+
+Skills are auto-invoked via progressive disclosure, or manually with `@wp-plugin-dev`.
+
+For global availability, copy to `~/.codeium/windsurf/skills/` instead.
+
+-----
 
 ### Google Antigravity
 
-Antigravity supports custom rules similar to Cursor/Windsurf. Place rule files in your project root or configure via the Agent Manager settings:
+Antigravity supports Agent Skills natively. Place skills in `.agent/skills/`:
 
 ```bash
-# Copy the combined rules
-cat wp-plugin-dev/SKILL.md wp-plugin-dev/references/*.md > your-project/.antigravity/rules/wp-plugin-dev.md
+cp -r wordpress-dev-skills/wp-plugin-dev your-project/.agent/skills/
+cp -r wordpress-dev-skills/wp-theme-dev your-project/.agent/skills/
 ```
+
+Your project structure:
+
+```
+your-project/
+└── .agent/
+    └── skills/
+        ├── wp-plugin-dev/
+        │   ├── SKILL.md
+        │   └── references/
+        └── wp-theme-dev/
+            ├── SKILL.md
+            └── references/
+```
+
+The agent loads only the skill metadata at session start and activates full instructions on-demand when relevant.
+
+For global availability, copy to `~/.gemini/antigravity/skills/` instead.
+
+-----
 
 ### GitHub Copilot
 
-GitHub Copilot supports custom instructions via `.github/copilot-instructions.md`:
+GitHub Copilot supports Agent Skills in VS Code, CLI, and the coding agent:
 
 ```bash
-# Combine into a single instructions file
-cat wp-plugin-dev/SKILL.md wp-plugin-dev/references/*.md > your-project/.github/copilot-instructions.md
+cp -r wordpress-dev-skills/wp-plugin-dev your-project/.github/skills/
+cp -r wordpress-dev-skills/wp-theme-dev your-project/.github/skills/
 ```
 
-### Any Other AI Tool
+Your project structure:
 
-The skills are just Markdown files. For any AI coding assistant that accepts custom instructions or system prompts:
+```
+your-project/
+└── .github/
+    └── skills/
+        ├── wp-plugin-dev/
+        │   ├── SKILL.md
+        │   └── references/
+        └── wp-theme-dev/
+            ├── SKILL.md
+            └── references/
+```
 
-1. **Paste the SKILL.md content** as the primary instruction/system prompt
-2. **Attach reference files** as additional context when working on specific tasks
-3. Or **combine everything** into a single document and paste into your tool's rules/settings
+For personal skills across all projects, copy to `~/.copilot/skills/` instead.
+
+-----
+
+### Any Other Tool
+
+These skills follow the [Agent Skills open standard](https://agentskills.io/specification). For any tool that supports it, just copy the skill folders to the tool’s skills directory. For tools that don’t yet support the standard natively:
+
+1. **Paste the SKILL.md content** as custom instructions or system prompt
+1. **Attach reference files** as additional context when needed
+1. Or **combine everything** into a single document for your tool’s rules/settings
+
+-----
 
 ### Platform Comparison
 
-| Feature | Claude | Cursor | Windsurf | Antigravity | Copilot |
-|---|---|---|---|---|---|
-| Config location | `.claude/skills/` | `.cursor/rules/` | `.windsurf/rules/` | `.antigravity/rules/` | `.github/copilot-instructions.md` |
-| File format | Markdown (YAML frontmatter) | `.mdc` (Markdown) | Markdown | Markdown | Markdown |
-| Multi-file support | ✅ (skill + references) | ✅ (multiple rule files) | ✅ (multiple rule files) | ✅ | ❌ (single file) |
-| Auto-trigger by context | ✅ (description field) | ✅ (globs + description) | ✅ (activation modes) | ✅ | ❌ (always active) |
-| Character limit | ~Generous | 6,000/rule | 12,000 total | Varies | No hard limit |
+|Feature               |Claude              |Cursor              |Windsurf                     |Antigravity                    |Copilot             |Codex               |
+|----------------------|--------------------|--------------------|-----------------------------|-------------------------------|--------------------|--------------------|
+|Skills location       |`.claude/skills/`   |`.cursor/skills/`   |`.windsurf/skills/`          |`.agent/skills/`               |`.github/skills/`   |`.codex/skills/`    |
+|Format                |`SKILL.md` + folders|`SKILL.md` + folders|`SKILL.md` + folders         |`SKILL.md` + folders           |`SKILL.md` + folders|`SKILL.md` + folders|
+|Auto-discovery        |✅                   |✅                   |✅                            |✅                              |✅                   |✅                   |
+|Manual invoke         |—                   |`@skill-name`       |`@skill-name`                |prompt-based                   |`/skills`           |`$skill-name`       |
+|Progressive disclosure|✅                   |✅                   |✅                            |✅                              |✅                   |✅                   |
+|Global skills         |—                   |`~/.cursor/skills/` |`~/.codeium/windsurf/skills/`|`~/.gemini/antigravity/skills/`|`~/.copilot/skills/`|`~/.codex/skills/`  |
 
-> **💡 Tip:** The modular structure (SKILL.md + separate reference files) is designed so you can load only what you need. For tools with tight character limits, use just the SKILL.md and reference specific files when needed.
+
+> **💡 Tip:** Since all platforms now follow the same Agent Skills standard, the skill folders are 100% portable. No conversion needed — just copy and use.
 
 ## 💡 Usage Examples
 
@@ -243,14 +314,13 @@ post type for reviews with star ratings, a REST API endpoint to fetch
 reviews, and a Gutenberg block to display them.
 ```
 
-Claude will automatically:
+Your AI agent will automatically:
+
 - Scaffold a clean, modular plugin structure
 - Keep the main file as a bootstrap loader only
 - Create separate class files for the CPT, REST API, and block
 - Sanitize all input, escape all output, use `$wpdb->prepare()`
 - Generate `readme.txt` and `uninstall.php`
-
-> Other AI agents (Cursor, Windsurf, etc.) will follow the same patterns when these rules are loaded.
 
 ### Theme Development
 
@@ -260,6 +330,7 @@ blog archive, and dark mode style variation. Make it accessibility-ready.
 ```
 
 Your AI agent will automatically:
+
 - Generate `theme.json` with accessible color palette (4.5:1+ contrast)
 - Create HTML templates with proper semantic structure
 - Add skip links, ARIA landmarks, underlined content links
@@ -278,18 +349,20 @@ These skills are built from official WordPress documentation:
 - [Accessibility-Ready Requirements](https://make.wordpress.org/themes/handbook/review/accessibility/required/)
 - [WordPress Security APIs](https://developer.wordpress.org/apis/security/)
 - [WCAG 2.1 Level AA](https://www.w3.org/WAI/WCAG21/quickref/?levels=aaa)
+- [Agent Skills Specification](https://agentskills.io/specification)
 
 ## 🤝 Contributing
 
-Contributions are welcome! If you'd like to improve these skills:
+Contributions are welcome! If you’d like to improve these skills:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b improve-security-reference`)
-3. Make your changes
-4. Test with your preferred AI agent to verify the skill produces correct output
-5. Submit a pull request
+1. Fork the [repository](https://github.com/wpacademy/wordpress-dev-skills)
+1. Create a feature branch (`git checkout -b improve-security-reference`)
+1. Make your changes
+1. Test with your preferred AI agent to verify the skill produces correct output
+1. Submit a pull request
 
 **Areas that could use contributions:**
+
 - Additional boilerplate patterns (e.g., WP-CLI commands, multisite support)
 - Expanded Gutenberg block development patterns
 - Performance optimization reference
