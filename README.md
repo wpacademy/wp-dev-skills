@@ -2,7 +2,7 @@
 
 # WordPress AI Agent Skills
 
-A collection of [Agent Skills](https://agentskills.io) for professional WordPress development. These skills ensure your AI coding agent — whether it’s Claude, Cursor, Windsurf, Antigravity, GitHub Copilot, Codex, or any other — follows official WordPress coding standards, security best practices, accessibility requirements (WCAG 2.1 AA), and WordPress.org directory guidelines when building plugins and themes.
+A collection of [Agent Skills](https://agentskills.io) for professional WordPress development. These skills ensure your AI coding agent — whether it's Claude, Cursor, Windsurf, Antigravity, GitHub Copilot, Codex, or any other — follows official WordPress coding standards, security best practices, accessibility requirements (WCAG 2.1 AA), and WordPress.org directory guidelines when building plugins and themes, or reviewing existing plugins for security vulnerabilities and repository readiness.
 
 ## 🎯 What Are Agent Skills?
 
@@ -69,7 +69,58 @@ wp-plugin-dev/
 
 -----
 
-### 2. `wp-theme-dev` — WordPress Theme Development
+### 2. `wp-plugin-review` — WordPress Plugin Review
+
+Guides your AI agent to perform a comprehensive code review of any WordPress plugin, combining automated tooling with deep manual analysis.
+
+**Triggers when you say things like:**
+
+- "Review this plugin"
+- "Audit a WordPress plugin"
+- "Check plugin security"
+- "Check my plugin for repository submission"
+- "Plugin code review"
+
+**What it does:**
+
+- **Two-phase review** — Runs automated tools (PHPCS with WPCS, PHPStan, PHPUnit) followed by deep manual code inspection
+- **Security audit** — Checks input sanitization, output escaping, SQL injection, nonce verification, capability checks, file security, and external request handling
+- **Coding standards** — Validates naming conventions, hook usage, enqueuing, internationalization, and PHP compatibility
+- **Repository readiness** — Verifies readme.txt, plugin headers, licensing, prefixing, data/privacy compliance, and admin UX
+- **Unit test assessment** — Evaluates test existence, quality, coverage areas, and CI/CD readiness
+- **Accessibility review** — Checks ARIA attributes, keyboard navigation, color contrast, screen reader support, and semantic HTML
+
+**Report output:**
+
+| Severity | Meaning |
+|----------|---------|
+| CRITICAL | Security vulnerability or blocking issue — must fix |
+| HIGH | Significant issue — may cause repository rejection |
+| MEDIUM | Best practice violation — recommended fix |
+| LOW | Minor improvement — nice to have |
+| PASS | Area passes review |
+
+The final report includes an overall score out of 100, per-category scores, before/after code fix snippets, and a priority-ordered list of recommended fixes.
+
+<details>
+<summary>File structure</summary>
+
+```
+wp-plugin-review/
+├── SKILL.md                            # Main instructions (162 lines)
+├── scripts/
+│   └── setup_tools.sh                  # Auto-installs PHPCS, PHPStan, PHPUnit (103 lines)
+└── references/
+    ├── security-checklist.md           # Full security review checklist (270 lines)
+    ├── repo-guidelines-checklist.md    # WordPress.org repository guidelines (234 lines)
+    └── report-template.md             # Markdown report template (215 lines)
+```
+
+</details>
+
+-----
+
+### 3. `wp-theme-dev` — WordPress Theme Development
 
 Guides your AI agent to build accessible, standards-compliant WordPress themes.
 
@@ -135,7 +186,7 @@ Then copy the skill folders to your platform’s skills directory:
 |**Codex**         |`cp -r wordpress-dev-skills/wp-plugin-dev your-project/.codex/skills/`   |
 
 
-> Repeat the same for `wp-theme-dev`.
+> Repeat the same for `wp-plugin-review` and `wp-theme-dev`.
 
 -----
 
@@ -143,6 +194,7 @@ Then copy the skill folders to your platform’s skills directory:
 
 ```bash
 cp -r wordpress-dev-skills/wp-plugin-dev your-project/.claude/skills/
+cp -r wordpress-dev-skills/wp-plugin-review your-project/.claude/skills/
 cp -r wordpress-dev-skills/wp-theme-dev your-project/.claude/skills/
 ```
 
@@ -155,12 +207,16 @@ your-project/
         ├── wp-plugin-dev/
         │   ├── SKILL.md
         │   └── references/
+        ├── wp-plugin-review/
+        │   ├── SKILL.md
+        │   ├── scripts/
+        │   └── references/
         └── wp-theme-dev/
             ├── SKILL.md
             └── references/
 ```
 
-Skills are auto-discovered by Claude based on the `description` in each SKILL.md’s frontmatter.
+Skills are auto-discovered by Claude based on the `description` in each SKILL.md's frontmatter.
 
 -----
 
@@ -170,6 +226,7 @@ Cursor supports Agent Skills natively since v2.4. Place skills in `.cursor/skill
 
 ```bash
 cp -r wordpress-dev-skills/wp-plugin-dev your-project/.cursor/skills/
+cp -r wordpress-dev-skills/wp-plugin-review your-project/.cursor/skills/
 cp -r wordpress-dev-skills/wp-theme-dev your-project/.cursor/skills/
 ```
 
@@ -182,12 +239,16 @@ your-project/
         ├── wp-plugin-dev/
         │   ├── SKILL.md
         │   └── references/
+        ├── wp-plugin-review/
+        │   ├── SKILL.md
+        │   ├── scripts/
+        │   └── references/
         └── wp-theme-dev/
             ├── SKILL.md
             └── references/
 ```
 
-Skills are auto-invoked when the agent determines they’re relevant, or you can manually invoke with `@wp-plugin-dev` or `@wp-theme-dev` in the chat.
+Skills are auto-invoked when the agent determines they're relevant, or you can manually invoke with `@wp-plugin-dev`, `@wp-plugin-review`, or `@wp-theme-dev` in the chat.
 
 For global availability across all projects, copy to `~/.cursor/skills/` instead.
 
@@ -199,6 +260,7 @@ Windsurf supports Agent Skills natively. Place skills in `.windsurf/skills/`:
 
 ```bash
 cp -r wordpress-dev-skills/wp-plugin-dev your-project/.windsurf/skills/
+cp -r wordpress-dev-skills/wp-plugin-review your-project/.windsurf/skills/
 cp -r wordpress-dev-skills/wp-theme-dev your-project/.windsurf/skills/
 ```
 
@@ -210,6 +272,10 @@ your-project/
     └── skills/
         ├── wp-plugin-dev/
         │   ├── SKILL.md
+        │   └── references/
+        ├── wp-plugin-review/
+        │   ├── SKILL.md
+        │   ├── scripts/
         │   └── references/
         └── wp-theme-dev/
             ├── SKILL.md
@@ -230,6 +296,7 @@ Antigravity supports Agent Skills natively. Place skills in `.agent/skills/`:
 
 ```bash
 cp -r wordpress-dev-skills/wp-plugin-dev your-project/.agent/skills/
+cp -r wordpress-dev-skills/wp-plugin-review your-project/.agent/skills/
 cp -r wordpress-dev-skills/wp-theme-dev your-project/.agent/skills/
 ```
 
@@ -241,6 +308,10 @@ your-project/
     └── skills/
         ├── wp-plugin-dev/
         │   ├── SKILL.md
+        │   └── references/
+        ├── wp-plugin-review/
+        │   ├── SKILL.md
+        │   ├── scripts/
         │   └── references/
         └── wp-theme-dev/
             ├── SKILL.md
@@ -259,6 +330,7 @@ GitHub Copilot supports Agent Skills in VS Code, CLI, and the coding agent:
 
 ```bash
 cp -r wordpress-dev-skills/wp-plugin-dev your-project/.github/skills/
+cp -r wordpress-dev-skills/wp-plugin-review your-project/.github/skills/
 cp -r wordpress-dev-skills/wp-theme-dev your-project/.github/skills/
 ```
 
@@ -270,6 +342,10 @@ your-project/
     └── skills/
         ├── wp-plugin-dev/
         │   ├── SKILL.md
+        │   └── references/
+        ├── wp-plugin-review/
+        │   ├── SKILL.md
+        │   ├── scripts/
         │   └── references/
         └── wp-theme-dev/
             ├── SKILL.md
@@ -322,6 +398,21 @@ Your AI agent will automatically:
 - Sanitize all input, escape all output, use `$wpdb->prepare()`
 - Generate `readme.txt` and `uninstall.php`
 
+### Plugin Review
+
+```
+Review my "Smart Reviews" plugin for security issues, coding standards
+compliance, and WordPress.org repository readiness. Generate a full report.
+```
+
+Your AI agent will automatically:
+
+- Install and run PHPCS (with WordPress Coding Standards), PHPStan, and PHPUnit
+- Perform a deep manual review of security patterns, coding standards, and repository guidelines
+- Check accessibility of any admin UI components
+- Evaluate unit test coverage and quality
+- Generate a detailed Markdown report with severity ratings, before/after code fixes, and an overall score out of 100
+
 ### Theme Development
 
 ```
@@ -348,6 +439,8 @@ These skills are built from official WordPress documentation:
 - [Theme Review Requirements](https://make.wordpress.org/themes/handbook/review/required/)
 - [Accessibility-Ready Requirements](https://make.wordpress.org/themes/handbook/review/accessibility/required/)
 - [WordPress Security APIs](https://developer.wordpress.org/apis/security/)
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [PHPCS WordPress Coding Standards](https://github.com/WordPress/WordPress-Coding-Standards)
 - [WCAG 2.1 Level AA](https://www.w3.org/WAI/WCAG21/quickref/?levels=aaa)
 - [Agent Skills Specification](https://agentskills.io/specification)
 
